@@ -76,6 +76,10 @@
   (go-to [x] "Navigates to entity from a changeset's environment content view"))
 
 (extend-protocol Promotable
+  katello.ContentView
+  (go-to [contentview]
+    (browser click ::content-views-category))
+
   katello.Product
   (go-to [prod]
     (browser click ::products-category))
