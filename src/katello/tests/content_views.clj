@@ -56,15 +56,12 @@
       (views/publish {:name content-def :published-name "pub-name" :org *session-org*})))
 
   (deftest "Publish content view definition and promote it"
-    (with-unique [org (kt/newOrganization {:name "promoted-cvd"})
-                  env (kt/newEnvironment {:name "dev" :org org})
-                  content-def (kt/newContentView {:name "con-def"
-                                                  :org org})
-                  changeset1 (kt/newChangeset {:name "cvd-changeset"
-                                               :env env})]
-      (let [org (assoc org :initial-env env)]
-        (ui/create-all (list org content-def changeset1))
-        (views/publish {:name content-def :published-name "pub-name" :org org}))))
+    (with-unique [org (kt/newOrganization {:name "promoted-cvd"
+                                           :initial-env  (kt/newEnvironment {:name "dev"})})
+                  content-def (kt/newContentView {:name "con-def" :org org})
+                  changeset1 (kt/newChangeset {:name "cvd-changeset" :env env})]
+      (ui/create-all (list org content-def changeset1))
+      (views/publish {:name content-def :published-name "pub-name" :org org})))
 
   (deftest "Create a new content-view/composite definition and add a product"
     :data-driven true
